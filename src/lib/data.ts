@@ -185,9 +185,12 @@ export const getAllTechnologies = (): string[] => {
   const projectTechs = projects.flatMap(p => p.stack || p.technologies || []);
   const profileSkills = profile.skills || [];
 
-  return [...new Set([...projectTechs, ...profileSkills])]
-    .filter(Boolean)
-    .sort();
+  // Handle both array and object formats for skills
+  const skillsArray = Array.isArray(profileSkills)
+    ? profileSkills
+    : Object.values(profileSkills).flat();
+
+  return [...new Set([...projectTechs, ...skillsArray])].filter(Boolean).sort();
 };
 
 export const getTechnologiesByCategory = (
@@ -293,11 +296,11 @@ export const validateExperienceData = (experience: Experience): boolean => {
 };
 
 export const validateProfileData = (profile: ProfileData): boolean => {
-  return Boolean(
-    profile.name &&
-      profile.title &&
-      profile.email &&
-      profile.skills &&
-      profile.skills.length > 0
-  );
+  const hasSkills = profile.skills
+    ? Array.isArray(profile.skills)
+      ? profile.skills.length > 0
+      : Object.keys(profile.skills).length > 0
+    : false;
+
+  return Boolean(profile.name && profile.title && profile.email && hasSkills);
 };

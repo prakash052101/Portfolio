@@ -64,7 +64,7 @@ export function ExperienceCard({
                         sizes="80px"
                         loading="lazy"
                         quality={90}
-                        onError={(e) => {
+                        onError={e => {
                           e.currentTarget.style.display = 'none';
                         }}
                       />

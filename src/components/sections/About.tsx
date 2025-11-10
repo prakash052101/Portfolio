@@ -125,46 +125,50 @@ export function About({ education }: AboutProps) {
                   Technical Skills
                 </h3>
                 <div className="space-y-4">
-                  {typeof profileData.skills === 'object' && !Array.isArray(profileData.skills) ? (
-                    Object.entries(profileData.skills).map(([category, skills]) => (
-                      <div key={category}>
-                        <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                          {category}
-                        </h4>
-                        <div
-                          className="flex flex-wrap gap-2"
-                          role="list"
-                          aria-label={category}
-                        >
-                          {(skills as string[]).map(skill => (
-                            <Badge
-                              key={skill}
-                              variant="default"
-                              className="cursor-default"
-                              role="listitem"
-                            >
-                              {skill}
-                            </Badge>
-                          ))}
+                  {typeof profileData.skills === 'object' &&
+                  !Array.isArray(profileData.skills) ? (
+                    Object.entries(profileData.skills).map(
+                      ([category, skills]) => (
+                        <div key={category}>
+                          <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                            {category}
+                          </h4>
+                          <div
+                            className="flex flex-wrap gap-2"
+                            role="list"
+                            aria-label={category}
+                          >
+                            {(skills as string[]).map(skill => (
+                              <Badge
+                                key={skill}
+                                variant="default"
+                                className="cursor-default"
+                                role="listitem"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))
+                      )
+                    )
                   ) : (
                     <div
                       className="flex flex-wrap gap-2"
                       role="list"
                       aria-label="Technical skills"
                     >
-                      {Array.isArray(profileData.skills) && profileData.skills.map(skill => (
-                        <Badge
-                          key={skill}
-                          variant="default"
-                          className="cursor-default"
-                          role="listitem"
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
+                      {Array.isArray(profileData.skills) &&
+                        profileData.skills.map(skill => (
+                          <Badge
+                            key={skill}
+                            variant="default"
+                            className="cursor-default"
+                            role="listitem"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
                     </div>
                   )}
                 </div>

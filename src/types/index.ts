@@ -98,8 +98,9 @@ export interface NavigationItem {
 }
 
 export interface ThemeContextType {
-  theme: 'light' | 'dark';
+  theme: 'light' | 'dark' | undefined;
   toggleTheme: () => void;
+  mounted: boolean;
 }
 
 export interface PageMetadata {

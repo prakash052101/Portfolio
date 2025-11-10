@@ -10,7 +10,7 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark' | undefined>(undefined);
   const [mounted, setMounted] = useState(false);
 
   // Initialize theme from localStorage or system preference
@@ -31,7 +31,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Apply theme to document with smooth 300ms transition
   useEffect(() => {
-    if (mounted) {
+    if (mounted && theme) {
       const root = document.documentElement;
 
       // Apply both data-theme attribute and class for Tailwind compatibility
@@ -53,7 +53,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Always provide context to prevent hydration mismatch
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );
