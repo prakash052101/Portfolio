@@ -1,5 +1,5 @@
 # Multi-stage build for optimized production image
-FROM node:18-alpine AS base
+FROM node:20-alpine3.20 AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -8,7 +8,8 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json ./
-RUN npm ci --only=production
+# Install all dependencies (including devDependencies needed for build)
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -20,8 +21,8 @@ COPY . .
 COPY .env.production* ./
 
 # Set environment variables
-ENV NEXT_TELEMETRY_DISABLED 1
-ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
 # Build the application
 RUN npm run build
@@ -30,8 +31,8 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
@@ -50,7 +51,7 @@ USER nextjs
 # Port can be overridden at runtime
 EXPOSE 6000
 
-ENV PORT 6000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=6000
+ENV HOSTNAME="0.0.0.0"
 
 CMD ["node", "server.js"]
