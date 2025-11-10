@@ -1,0 +1,198 @@
+[
+  {
+    "id": "blogsage",
+    "title": "Blogsage",
+    "slug": "blogsage",
+    "summary": "Full-stack blogging platform with MERN stack and automated CI/CD.",
+    "description": "A comprehensive blogging platform built with MERN stack, featuring real-time editing, user authentication, and content management. Deployed using Docker and Jenkins with automated CI/CD pipelines. The platform includes advanced features like markdown support, image optimization, and SEO-friendly URLs.",
+    "stack": [
+      "React",
+      "Tailwind CSS",
+      "Flowbite React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "Firebase Auth (OTP + Google OAuth)",
+      "Redis",
+      "Docker",
+      "Jenkins",
+      "GitHub",
+      "Nginx",
+      "Ubuntu"
+    ],
+    "features": [
+      "Real-time markdown editor with live preview",
+      "User authentication and authorization with JWT",
+      "Image optimization and CDN integration",
+      "SEO-friendly URLs and meta tags",
+      "Automated CI/CD pipeline with Docker and Jenkins"
+    ],
+    "impact": "Achieved 40% faster load times through optimized database queries and caching strategies",
+    "live": "https://www.blogsage.in/",
+    "repo": "",
+    "images": [
+      "/images/projects/blogsage-homepage.jpg",
+      "/images/projects/blogsage-thumb.svg"
+    ]
+  },
+  {
+    "id": "expense-tracker",
+    "title": "Expense Tracker",
+    "slug": "expense-tracker",
+    "summary": "Full-stack personal finance tracker with analytics and JWT-secured authentication.",
+    "description": "A full-stack MERN application designed to help users track, analyze, and visualize their expenses in an interactive and secure way. It features category-wise filtering, budget tracking, and detailed monthly/yearly insights presented through dynamic charts. The app provides real-time updates, secure authentication, and responsive UI for a seamless experience across devices.",
+    "stack": [
+      "MongoDB",
+      "Express.js",
+      "React.js",
+      "Node.js",
+      "JWT Authentication",
+      "Chart.js",
+      "Axios",
+      "Context API",
+      "React Router",
+      "Tailwind CSS"
+    ],
+    "features": [
+      "Add, edit, and delete expense records with instant state updates",
+      "Category and date range filters for targeted analysis",
+      "Budget limit setup with progress indicators",
+      "Dynamic visualizations using Chart.js (monthly/yearly summaries)",
+      "JWT-based secure login and registration",
+      "Persistent user sessions with token validation",
+      "Responsive design with Tailwind CSS and modular React components"
+    ],
+    "impact": "Improved personal finance management efficiency by offering an intuitive dashboard and insightful visual reports, enabling users to reduce unnecessary spending through real-time tracking and analytics.",
+    "live": "",
+    "repo": "https://github.com/prakash052101/expense-tracker-app",
+    "images": [
+      "/images/projects/expense-tracker-dashboard.jpg",
+      "/images/projects/expense-tracker-thumb.svg"
+    ]
+  },
+  {
+    "id": "mayreneo",
+    "title": "MayreneO",
+    "slug": "mayreneo",
+    "summary": "Modern landing website with smooth UI, responsive layout, and elegant branding.",
+    "description": "MayreneO is a visually captivating landing website designed with React and Tailwind CSS. It focuses on elegant design, smooth transitions, and a modern component-based structure. Built with attention to detail, it demonstrates advanced front-end design practices, responsive layouts, and optimized asset management for performance and accessibility.",
+    "stack": [
+      "React.js",
+      "Tailwind CSS",
+      "JavaScript (ES6+)",
+      "React Router",
+      "Framer Motion"
+    ],
+    "features": [
+      "Responsive and adaptive layout for all screen sizes",
+      "Animated transitions using Framer Motion",
+      "Component-driven structure with reusable sections",
+      "Optimized images and assets for fast loading",
+      "Clean, minimalist design focusing on user experience"
+    ],
+    "impact": "Demonstrates strong front-end development and design expertise through a pixel-perfect, interactive, and responsive modern web interface.",
+    "live": "https://mayreneo.blogsage.in/",
+    "repo": "https://github.com/prakash052101/MayreneO",
+    "images": [
+      "/images/projects/mayreneo-home.jpg",
+      "/images/projects/mayreneo-thumb.svg"
+    ]
+  },
+  {
+    "id": "airbnb-clone",
+    "title": "Airbnb Clone",
+    "slug": "airbnb-clone",
+    "summary": "Full-stack property rental platform with booking flow and map integration.",
+    "description": "A modern full-stack web application inspired by Airbnb, allowing users to list, browse, and book properties with a real-world workflow. Built using Next.js and Prisma ORM with MongoDB, it includes secure authentication, property creation, image uploads via Cloudinary, and interactive map-based exploration powered by Mapbox. The project demonstrates a complete full-stack architecture, from database design to UI responsiveness.",
+    "stack": [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Mongoose",
+      "JWT Authentication",
+      "Multer",
+      "Axios",
+      "Tailwind CSS",
+      "bcryptjs",
+      "dotenv"
+    ],
+    "features": [
+      "Property listing creation with image uploads",
+      "Interactive map search using Mapbox",
+      "Full booking flow with calendar-based date selection",
+      "NextAuth-based authentication (credentials and OAuth)",
+      "Favorite and saved listings management",
+      "Responsive and mobile-friendly design"
+    ],
+    "impact": "Showcases end-to-end development expertise in building scalable, secure, and visually rich web applications using modern Next.js and Prisma-based architecture.",
+    "live": "",
+    "repo": "https://github.com/prakash052101/Airbnb-Clone",
+    "images": [
+      "/images/projects/airbnb-clone-thumb.svg",
+      "/images/projects/airbnb-clone-home.jpg"
+    ]
+  },
+  {
+    "id": "admin-dashboard",
+    "title": "Admin Dashboard",
+    "slug": "admin-dashboard",
+    "summary": "Comprehensive admin panel with analytics and data management.",
+    "description": "A feature-rich admin dashboard for managing applications, users, and data. Built with React and modern UI libraries, featuring real-time analytics, data tables with sorting and filtering, user management, and customizable widgets. Includes dark mode support and responsive design.",
+    "stack": [
+      "React",
+      "TypeScript",
+      "Material-UI",
+      "Redux",
+      "Chart.js",
+      "Node.js",
+      "Express"
+    ],
+    "features": [
+      "Real-time analytics and data visualization",
+      "User and role management",
+      "Data tables with advanced filtering",
+      "Customizable dashboard widgets",
+      "Dark mode and responsive design"
+    ],
+    "impact": "Provides comprehensive tools for application management and data-driven decision making",
+    "live": "https://admin-frontend-ollu.onrender.com",
+    "repo": "https://github.com/prakash052101/MERN-fullstack-admin-dashboard",
+    "images": [
+      "/images/projects/admin-dashboard-analytics.jpg",
+      "/images/projects/admin-dashboard-thumb.svg"
+    ]
+  },
+  {
+    "id": "tradepaisa",
+    "title": "TradePaisa",
+    "slug": "tradepaisa",
+    "summary": "Responsive company website for a financial services brand.",
+    "description": "TradePaisa is a modern, responsive homepage developed for a financial and trading consultancy brand. It features an elegant design, animated sections, and smooth navigation highlighting the company’s services, strategies, and contact information. Built using React with TypeScript and Vite, it focuses on fast performance, scalability, and clean UI/UX design.",
+    "stack": [
+      "React.js",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "Framer Motion",
+      "React Router DOM",
+      "Flowbite",
+      "React Icons"
+    ],
+    "features": [
+      "Fully responsive layout optimized for all devices",
+      "Animated hero and content sections with Framer Motion",
+      "Dedicated pages for About, Education, and Strategies",
+      "Modern component-based structure using React + TypeScript",
+      "Fast builds and performance optimization via Vite",
+      "Interactive WhatsApp widget for user engagement"
+    ],
+    "impact": "Serves as a professional digital presence for the TradePaisa brand, showcasing financial expertise through a clean and responsive web experience.",
+    "live": "https://www.tradepaisa.in",
+    "repo": "",
+    "images": [
+      "/images/projects/tradepaisa-homepage.jpg",
+      "/images/projects/tradepaisa-thumb.svg"
+    ]
+  }
+]

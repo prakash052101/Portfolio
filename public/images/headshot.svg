@@ -1,0 +1,6 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" fill="#6366f1"/>
+  <circle cx="80" cy="65" r="25" fill="white"/>
+  <path d="M40 140c0-22.091 17.909-40 40-40s40 17.909 40 40v20H40v-20z" fill="white"/>
+  <text x="80" y="150" text-anchor="middle" fill="white" font-family="Arial" font-size="12">PK</text>
+</svg>

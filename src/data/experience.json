@@ -1,0 +1,64 @@
+[
+  {
+    "id": "accenture",
+    "company": "Accenture",
+    "role": "Packaged App Development Associate",
+    "startDate": "2024-04",
+    "endDate": "Present",
+    "location": "Bengaluru, India",
+    "achievements": [
+      "Contributed to the design, development, and maintenance of enterprise-grade web applications using the MEAN stack and Adobe Magento 2, covering backend logic, front-end integration, and full-stack delivery.",
+      "Enhanced backend modules and utilities to improve modularity, performance, and code readability; improved logging and error handling for production stability.",
+      "Designed and optimized unit and automation test suites using PHPUnit and Gherkin (BDD), enhancing test coverage and reducing post-deployment defects by approximately 20%.",
+      "Engineered and optimized Angular + Firebase + Cloud Functions workflows with real-time sync and automated notifications, reducing backend latency from 1100ms to 400ms through caching and query optimization.",
+      "Automated deployments via GitHub Actions and Firebase Hosting, establishing scalable CI/CD pipelines and environment rollouts.",
+      "Collaborated in architecture and performance reviews, contributing to scalable design choices and DevOps-driven engineering practices."
+    ],
+    "logo": "/images/companies/accenture-logo.svg"
+  },
+  {
+    "id": "ideas",
+    "company": "IDeaS Revenue Solutions",
+    "role": "Associate Technical Support Engineer",
+    "startDate": "2023-10",
+    "endDate": "2024-01",
+    "location": "Pune, India",
+    "achievements": [
+      "Provided technical support for global hotel clients using IDeaS G3 RMS, Optix, and RevPlan tools to optimize revenue and forecasting workflows.",
+      "Resolved over 100 client cases efficiently, ensuring high service availability and operational accuracy.",
+      "Collaborated with cross-functional teams to analyze complex production issues and deliver prompt technical resolutions.",
+      "Maintained client communication via email and documentation to ensure transparent, timely problem resolution and customer satisfaction."
+    ],
+    "logo": "/images/companies/ideas-logo.svg"
+  },
+  {
+    "id": "techvestors",
+    "company": "Techvestors",
+    "role": "Python Developer",
+    "startDate": "2022-05",
+    "endDate": "2022-10",
+    "location": "Remote",
+    "achievements": [
+      "Developed GUI-based applications using Python and PyQt5 with strong emphasis on modular design and code maintainability.",
+      "Built a QR Code Reader using OpenCV to automate data retrieval workflows with secure API integrations.",
+      "Implemented robust exception handling and optimized database interactions for data integrity and performance.",
+      "Utilized Python libraries such as Pandas, NumPy, PyQt5, and OpenCV to enhance user experience and data visualization."
+    ],
+    "logo": "/images/companies/techvestors-logo.jpeg"
+  },
+  {
+    "id": "zoopmart",
+    "company": "Zoopmart",
+    "role": "Co-Founder & CTO",
+    "startDate": "2020-06",
+    "endDate": "2021-05",
+    "location": "Muzaffarpur, India",
+    "achievements": [
+      "Co-founded an online grocery delivery startup to meet essential needs during the COVID-19 pandemic.",
+      "Designed and implemented an Invoice Generator and Inventory Management system to streamline operations and improve customer experience.",
+      "Led full-stack web development, hosting, and maintenance to ensure a seamless end-to-end shopping experience.",
+      "Developed and executed digital marketing campaigns and promotional content that significantly increased user engagement and retention."
+    ],
+    "logo": null
+  }
+]

@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /download-resume
+
+# Host
+Host: https://prakash.blogsage.in
+
+# Sitemaps
+Sitemap: https://prakash.blogsage.in/sitemap.xml

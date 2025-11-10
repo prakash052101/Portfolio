@@ -1,0 +1,36 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0f172a"/>
+  
+  <!-- Gradient overlay -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gradient)"/>
+  
+  <!-- Main content -->
+  <g transform="translate(100, 200)">
+    <!-- Name -->
+    <text x="0" y="0" font-family="Inter, system-ui, sans-serif" font-size="64" font-weight="700" fill="#f8fafc">
+      Prakash Kumar
+    </text>
+    
+    <!-- Title -->
+    <text x="0" y="80" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="400" fill="#94a3b8">
+      Backend Developer &amp; Full-Stack Engineer
+    </text>
+    
+    <!-- Tagline -->
+    <text x="0" y="140" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="300" fill="#64748b" text-anchor="start">
+      <tspan x="0" dy="0">Backend-first full-stack engineer shipping</tspan>
+      <tspan x="0" dy="35">scalable web apps, CI/CD pipelines, and cloud functions</tspan>
+    </text>
+  </g>
+  
+  <!-- Accent elements -->
+  <circle cx="1050" cy="150" r="80" fill="#6366f1" opacity="0.1"/>
+  <circle cx="1100" cy="500" r="60" fill="#14b8a6" opacity="0.1"/>
+</svg>

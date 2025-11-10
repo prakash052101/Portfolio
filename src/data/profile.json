@@ -1,0 +1,28 @@
+{
+  "name": "Prakash Kumar",
+  "title": "Full-Stack Engineer & AI/ML Developer",
+  "location": "Bengaluru, Karnataka, India",
+  "email": "prakash.kumar@blogsage.in",
+  "linkedin": "https://www.linkedin.com/in/prakash052101/",
+  "github": "https://github.com/prakash052101",
+  "portfolio": "https://prakash.blogsage.in",
+  "skills": {
+    "Programming Languages": ["Python", "JavaScript", "C/C++", "Core Java"],
+    "Web Technologies": ["MEAN Stack", "MERN Stack", "RESTful APIs", "Angular", "Node.js", "Express", "React", "TypeScript"],
+    "Database Systems": ["MySQL", "MongoDB", "Firebase Realtime Database", "Firestore", "SQLite"],
+    "Cloud & Backend Services": ["AWS (EC2, S3)", "Google Cloud Platform", "Firebase Cloud Functions"],
+    "DevOps & Version Control": ["Git", "GitHub Actions", "Jenkins", "Docker", "Nginx", "Redis"],
+    "System & Architecture Design": ["System Design", "Schema Design", "API Architecture", "OpenAPI Specification", "Microservice Design Patterns"]
+  },
+  "languages": [
+    {
+      "language": "English",
+      "proficiency": "Professional Working Proficiency"
+    },
+    {
+      "language": "Hindi",
+      "proficiency": "Native or Bilingual Proficiency"
+    }
+  ],
+  "summary": "A.I/M.L and Full-stack engineer with expertise in building scalable web applications, CI/CD pipelines, and cloud functions. Experienced in MERN stack development, DevOps automation, and performance optimization. Proven track record of delivering measurable improvements in system performance and reliability. Passionate about clean code, best practices, and continuous learning."
+}

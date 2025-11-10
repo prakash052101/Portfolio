@@ -1,0 +1,8 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="#0f172a"/>
+  <rect x="30" y="60" width="120" height="8" rx="4" fill="#14b8a6"/>
+  <rect x="30" y="80" width="120" height="8" rx="4" fill="#14b8a6"/>
+  <rect x="30" y="100" width="90" height="8" rx="4" fill="#14b8a6"/>
+  <circle cx="140" cy="40" r="20" fill="#6366f1"/>
+  <text x="90" y="140" text-anchor="middle" fill="#f8fafc" font-family="system-ui" font-size="16" font-weight="600">PK</text>
+</svg>
