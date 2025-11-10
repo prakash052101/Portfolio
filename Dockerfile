@@ -16,6 +16,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Copy environment file if it exists
+COPY .env.production* ./
+
 # Set environment variables
 ENV NEXT_TELEMETRY_DISABLED 1
 ENV NODE_ENV production
@@ -44,9 +47,10 @@ RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 
-EXPOSE 3000
+# Port can be overridden at runtime
+EXPOSE 6000
 
-ENV PORT 3000
+ENV PORT 6000
 ENV HOSTNAME "0.0.0.0"
 
 CMD ["node", "server.js"]

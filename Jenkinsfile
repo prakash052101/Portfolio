@@ -4,6 +4,8 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'portfolio-website'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
+        APP_PORT = '6000' // Port on host machine
+        CONTAINER_PORT = '6000' // Port inside container
     }
     
     stages {
@@ -18,7 +20,7 @@ pipeline {
             steps {
                 // Pull down environment files from Jenkins credentials
                 withCredentials([
-                    file(credentialsId: 'PORTFOLIO_ENV_PRODUCTION', variable: 'ENV_FILE')
+                    file(credentialsId: 'PORTFOLIO_ENV', variable: 'ENV_FILE')
                 ]) {
                     sh '''
                         echo "📦 Placing .env.production..."
@@ -47,10 +49,12 @@ pipeline {
                     docker stop portfolio-container || true
                     docker rm portfolio-container || true
                     
-                    # Run new container
+                    # Run new container with environment file
                     docker run -d \
                         --name portfolio-container \
-                        -p 3000:3000 \
+                        -p ${APP_PORT}:${CONTAINER_PORT} \
+                        -e PORT=${CONTAINER_PORT} \
+                        --env-file .env.production \
                         --restart unless-stopped \
                         ${DOCKER_IMAGE}:latest
                 '''
@@ -62,7 +66,7 @@ pipeline {
                 echo '🏥 Running health check...'
                 sh '''
                     sleep 10
-                    curl -f http://localhost:3000 || exit 1
+                    curl -f http://localhost:${APP_PORT} || exit 1
                     echo "✅ Application is healthy!"
                 '''
             }
