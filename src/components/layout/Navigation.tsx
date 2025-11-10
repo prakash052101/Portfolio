@@ -134,7 +134,7 @@ export function Navigation({ currentSection }: NavigationProps) {
           isMenuOpen
             ? 'bg-background/80 backdrop-blur-lg shadow-sm supports-[backdrop-filter]:bg-background/60'
             : isScrolled
-              ? 'bg-background/80 md:backdrop-blur-lg shadow-sm md:supports-[backdrop-filter]:bg-background/60'
+              ? 'md:bg-background/80 md:backdrop-blur-lg md:shadow-sm md:supports-[backdrop-filter]:bg-background/60'
               : 'bg-transparent'
         }
       `}

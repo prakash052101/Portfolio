@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { CONTACT_INFO } from '@/lib/constants';
@@ -37,6 +38,7 @@ export function Hero() {
                 src={CONTACT_INFO.profileImage || '/images/profile.jpg'}
                 alt={`Professional photo of ${CONTACT_INFO.name}`}
                 fill
+                sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
                 className="object-cover"
                 onError={() => setImageError(true)}
                 priority
@@ -46,6 +48,7 @@ export function Hero() {
                 src={`https://ui-avatars.com/api/?name=${encodeURIComponent(CONTACT_INFO.name)}&size=256&background=4f46e5&color=fff&bold=true`}
                 alt={`Avatar for ${CONTACT_INFO.name}`}
                 fill
+                sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
                 className="object-cover"
                 unoptimized
               />
@@ -95,14 +98,16 @@ export function Hero() {
           </Button>
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex justify-center w-full">
           <button
             onClick={() => scrollToSection('about')}
-            className="flex flex-col items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-lg p-2"
+            className="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400 
+               hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors 
+               focus:outline-none focus:ring-2 focus:ring-indigo-500 
+               focus:ring-offset-2 rounded-lg p-2 animate-bounce"
             aria-label="Scroll to about section"
           >
-            <span className="text-sm font-medium">Scroll</span>
+            <span className="text-sm font-medium tracking-wide">Scroll</span>
             <ChevronDown className="w-6 h-6" aria-hidden="true" />
           </button>
         </div>
