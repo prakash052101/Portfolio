@@ -36,9 +36,9 @@
     ]
   },
   {
-    "id": "expense-tracker",
-    "title": "Expense Tracker",
-    "slug": "expense-tracker",
+    "id": "fynli",
+    "title": "Fynli",
+    "slug": "fynli",
     "summary": "Full-stack personal finance tracker with analytics and JWT-secured authentication.",
     "description": "A full-stack MERN application designed to help users track, analyze, and visualize their expenses in an interactive and secure way. It features category-wise filtering, budget tracking, and detailed monthly/yearly insights presented through dynamic charts. The app provides real-time updates, secure authentication, and responsive UI for a seamless experience across devices.",
     "stack": [
@@ -66,8 +66,8 @@
     "live": "",
     "repo": "https://github.com/prakash052101/expense-tracker-app",
     "images": [
-      "/images/projects/expense-tracker-dashboard.jpg",
-      "/images/projects/expense-tracker-thumb.svg"
+      "/images/projects/fynli.jpg",
+      ""
     ]
   },
   {

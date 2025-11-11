@@ -181,6 +181,16 @@ a:not(.button):not([role='button']) {
   background: var(--accent);
 }
 
+/* Hide scrollbar utility for horizontal scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 /* Custom animations */
 @keyframes fade-in {
   from {
@@ -437,6 +447,10 @@ img {
 
 .will-change-opacity {
   will-change: opacity;
+}
+
+.will-change-scroll {
+  will-change: scroll-position;
 }
 
 /* Reduce motion for users who prefer it */
