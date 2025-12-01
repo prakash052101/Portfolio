@@ -63,32 +63,32 @@ export const SITE_METADATA: SiteMetadata = {
 export const NAVIGATION_ITEMS: NavigationItem[] = [
   {
     label: 'Home',
-    href: '#hero',
+    href: '/',
     section: 'hero',
   },
   {
     label: 'About',
-    href: '#about',
+    href: '/about',
     section: 'about',
   },
   {
     label: 'Experience',
-    href: '#experience',
+    href: '/experience',
     section: 'experience',
   },
   {
     label: 'Projects',
-    href: '#projects',
+    href: '/projects',
     section: 'projects',
   },
   {
     label: 'Writing & Talks',
-    href: '#writing',
+    href: '/writing',
     section: 'writing',
   },
   {
     label: 'Contact',
-    href: '#contact',
+    href: '/contact',
     section: 'contact',
   },
 ];
@@ -130,9 +130,9 @@ export const THEME_CONFIG = {
 
 // Resume Configuration
 export const RESUME_CONFIG = {
-  filename: 'PRAKASH_RESUME.pdf',
+  filename: 'PRAKASH_KUMAR_RESUME.pdf',
   downloadPath: '/download-resume',
-  publicPath: '/resume/PRAKASH_RESUME.pdf',
+  publicPath: '/resume/PRAKASH_KUMAR_RESUME.pdf',
 };
 
 // SEO Configuration

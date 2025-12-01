@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Experience } from '@/types';
 import { formatDateRange, calculateDuration } from '@/lib/utils';
@@ -17,6 +17,9 @@ export function ExperienceCard({
 }: ExperienceCardProps) {
   const dateRange = formatDateRange(experience.startDate, experience.endDate);
   const duration = calculateDuration(experience.startDate, experience.endDate);
+  const [logoError, setLogoError] = useState(false);
+  const logoSrc = !logoError ? experience.logo : null;
+  const isSvgLogo = logoSrc?.toLowerCase().endsWith('.svg');
 
   return (
     <article
@@ -45,31 +48,19 @@ export function ExperienceCard({
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
             <div className="flex items-start gap-4 flex-1">
               {/* Company Logo */}
-              <div className="flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-slate-200 dark:border-slate-600 flex items-center justify-center p-3">
-                {experience.logo ? (
-                  experience.logo.endsWith('.svg') ? (
-                    <img
-                      src={experience.logo}
-                      alt={`${experience.company} logo`}
-                      className="w-full h-full object-contain"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={experience.logo}
-                        alt={`${experience.company} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="80px"
-                        loading="lazy"
-                        quality={90}
-                        onError={e => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  )
+              <div className="relative flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-slate-200 dark:border-slate-600 flex items-center justify-center p-3">
+                {logoSrc ? (
+                  <Image
+                    src={logoSrc}
+                    alt={`${experience.company} logo`}
+                    fill
+                    className="object-contain"
+                    sizes="80px"
+                    loading="lazy"
+                    quality={isSvgLogo ? undefined : 90}
+                    unoptimized={isSvgLogo}
+                    onError={() => setLogoError(true)}
+                  />
                 ) : (
                   <span className="text-lg font-bold text-indigo-600 dark:text-indigo-400">
                     {experience.company.charAt(0)}

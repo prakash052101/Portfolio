@@ -1,179 +1,169 @@
 'use client';
 
-import { Project } from '@/types';
-import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Github, ChevronDown, Sparkles } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
-import { useState, useCallback } from 'react';
-import {
-  IMAGE_SIZES,
-  IMAGE_QUALITY,
-  shouldPrioritizeImage,
-  getImageLoadingStrategy,
-} from '@/lib/image-utils';
+import { ExternalLink, Github, FolderIcon } from 'lucide-react';
+import { ProjectCardProps } from '@/types/project';
+import { cn } from '@/lib/utils';
 
-interface ProjectCardProps {
-  project: Project;
-  index: number;
-}
+export function ProjectCard({
+  project,
+  onOpenModal,
+  layout,
+  index,
+}: ProjectCardProps) {
+  const [imageError, setImageError] = useState(false);
+  const thumbnail = project.images?.[0] ?? project.image;
 
-export function ProjectCard({ project, index }: ProjectCardProps) {
-  const [showFeatures, setShowFeatures] = useState(false);
-  const [showAllTech, setShowAllTech] = useState(false);
+  // Determine if this is one of the first 3 cards for priority loading
+  const isPriority = index < 3;
+  const isSvgImage = thumbnail.toLowerCase().endsWith('.svg');
+  const placeholderType = isSvgImage || !project.blurDataURL ? 'empty' : 'blur';
 
-  const toggleFeatures = useCallback(() => {
-    setShowFeatures(prev => !prev);
-  }, []);
+  // Handle click to open modal
+  const handleClick = () => {
+    onOpenModal(project);
+  };
 
-  const toggleTech = useCallback(() => {
-    setShowAllTech(prev => !prev);
-  }, []);
-
-  const imageUrl = Array.isArray(project.images)
-    ? project.images[0]
-    : project.images.thumbnail;
-
-  const displaySummary = project.summary || project.description;
-  const techStack = project.stack || project.technologies || [];
-  const hasLiveDemo = Boolean(project.live && project.live.trim() !== '');
-  const repoUrl = project.repo || project.links?.github || '';
-  const features = project.features || [];
-  const hasFeatures = features.length > 0;
+  // Handle keyboard navigation (Enter/Space)
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onOpenModal(project);
+    }
+  };
 
   return (
     <article
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${project.title}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
       className={cn(
-        'group relative flex flex-col h-fit overflow-hidden rounded-2xl bg-card',
-        'border-2 border-border shadow-lg',
-        'transition-shadow duration-200 ease-out',
-        'hover:shadow-2xl hover:border-indigo-500/50',
-        'focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2'
+        // Base styles
+        'group relative flex flex-col overflow-hidden rounded-xl cursor-pointer',
+        'bg-gray-900 border border-gray-800',
+        'transition-all duration-300',
+        // Hover effects (desktop only) - lift effect with scale and enhanced shadow
+        'hover:scale-[1.02] hover:shadow-2xl hover:shadow-indigo-500/30 hover:border-indigo-500/50',
+        // Gradient border glow effect using pseudo-element (outer glow)
+        'before:absolute before:inset-0 before:rounded-xl before:p-[1px]',
+        'before:bg-gradient-to-r before:from-indigo-500 before:via-purple-500 before:to-indigo-500',
+        'before:opacity-0 before:transition-opacity before:duration-300',
+        'hover:before:opacity-100 before:-z-10 before:blur-xl',
+        // Additional inner glow effect using after pseudo-element
+        'after:absolute after:inset-0 after:rounded-xl',
+        'after:bg-gradient-to-br after:from-indigo-500/5 after:via-transparent after:to-purple-500/5',
+        'after:opacity-0 after:transition-opacity after:duration-300',
+        'hover:after:opacity-100 after:pointer-events-none',
+        // Focus styles
+        'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-950',
+        // Layout-specific styles
+        layout === 'strip' && 'snap-center flex-shrink-0 w-[85vw]',
+        layout === 'grid' && 'h-full',
+        // Performance optimization: will-change for animated properties
+        'will-change-transform'
       )}
-      role="listitem"
-      aria-labelledby={`project-title-${project.id}`}
     >
       {/* Project Image */}
-      <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 flex-shrink-0">
-        {imageUrl ? (
-          <Image
-            src={imageUrl}
-            alt={`${project.title} project screenshot`}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-            priority={shouldPrioritizeImage(index)}
-            loading={getImageLoadingStrategy(index)}
-            sizes={IMAGE_SIZES.projectCard}
-            quality={IMAGE_QUALITY.standard}
-            onError={e => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
+      <div className="relative z-10 aspect-video overflow-hidden bg-gray-800 flex-shrink-0">
+        {!imageError ? (
+          <>
+            {/* Loading skeleton - shown while image loads */}
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse" />
+            <Image
+              src={thumbnail}
+              alt={`Screenshot of ${project.title} showing ${project.shortDescription}`}
+              fill
+              className="object-cover transition-all duration-500 group-hover:scale-105 will-change-transform opacity-0 data-[loaded=true]:opacity-100"
+              priority={isPriority}
+              loading={isPriority ? 'eager' : 'lazy'}
+              sizes="(max-width: 768px) 85vw, (max-width: 1024px) 45vw, 30vw"
+              quality={80}
+              placeholder={placeholderType}
+              blurDataURL={isSvgImage ? undefined : project.blurDataURL}
+              unoptimized={isSvgImage}
+              onError={() => setImageError(true)}
+              onLoad={e => {
+                const img = e.target as HTMLImageElement;
+                img.setAttribute('data-loaded', 'true');
+              }}
+            />
+          </>
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 opacity-20">
-              {project.title.charAt(0)}
-            </span>
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-800 animate-in fade-in duration-300">
+            <div className="text-center">
+              <FolderIcon className="w-16 h-16 mx-auto text-gray-600" />
+              <p className="mt-2 text-sm text-gray-500">Image unavailable</p>
+            </div>
           </div>
         )}
       </div>
 
       {/* Project Content */}
-      <div className="flex flex-col flex-1 p-6">
-        <h3
-          id={`project-title-${project.id}`}
-          className="text-xl font-semibold text-foreground mb-2 leading-tight"
-        >
+      <div className="relative z-10 flex flex-col flex-1 p-6">
+        {/* Title */}
+        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight tracking-tight">
           {project.title}
         </h3>
 
-        <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-2 min-h-[2.5rem]">
-          {displaySummary}
+        {/* Short Description */}
+        <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4 line-clamp-2">
+          {project.shortDescription}
         </p>
 
-        {/* Tech Stack */}
-        <div className="mb-4">
-          {techStack.length > 0 && (
-            <div className="space-y-2">
-              <div className="flex flex-wrap gap-2" role="list">
-                {(showAllTech ? techStack : techStack.slice(0, 6)).map(tech => (
-                  <Badge key={tech} variant="default" role="listitem">
-                    {tech}
-                  </Badge>
-                ))}
-              </div>
-              {techStack.length > 6 && (
-                <button
-                  type="button"
-                  onClick={toggleTech}
-                  className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors font-medium"
-                >
-                  {showAllTech ? 'Show Less' : `Show All (${techStack.length})`}
-                </button>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tags.slice(0, 4).map((tag, tagIndex) => (
+            <span
+              key={tag}
+              className={cn(
+                'relative px-3 py-1 text-xs font-medium rounded-full',
+                'bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/10',
+                'text-indigo-400 border border-indigo-500/20',
+                'transition-all duration-300',
+                'hover:border-indigo-400/40 hover:shadow-sm hover:shadow-indigo-500/20'
               )}
-            </div>
+            >
+              {tag}
+            </span>
+          ))}
+          {project.tags.length > 4 && (
+            <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-800 text-gray-400">
+              +{project.tags.length - 4} more
+            </span>
           )}
         </div>
 
+        {/* Spacer */}
         <div className="flex-1" />
 
-        {/* Key Features */}
-        {hasFeatures && (
-          <div className="mb-4">
-            <button
-              type="button"
-              onClick={toggleFeatures}
-              className="flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-md px-2 py-1 -ml-2"
-            >
-              <Sparkles className="h-4 w-4" />
-              <span>Key Features</span>
-              <ChevronDown
-                className={cn(
-                  'h-4 w-4 transition-transform duration-200',
-                  showFeatures && 'rotate-180'
-                )}
-              />
-            </button>
-
-            {showFeatures && (
-              <ul className="space-y-2 text-sm text-muted-foreground mt-3">
-                {features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-indigo-600 dark:text-indigo-400 mt-1 flex-shrink-0">
-                      ✓
-                    </span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        )}
-
         {/* Action Buttons */}
-        <div className="flex gap-3">
-          {repoUrl && (
-            <a
-              href={repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium bg-foreground text-background transition-all duration-150 hover:opacity-90 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 min-h-[44px]"
+        <div className="flex gap-3 mt-4">
+          {project.liveUrl && (
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             >
-              <Github className="h-4 w-4" />
-              View Code
-            </a>
+              <ExternalLink className="w-4 h-4" />
+              Live
+            </button>
           )}
-
-          {hasLiveDemo && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium border-2 border-foreground text-foreground transition-all duration-150 hover:bg-foreground hover:text-background hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 min-h-[44px]"
+          {project.codeUrl && (
+            <button
+              onClick={e => {
+                e.stopPropagation();
+                window.open(project.codeUrl, '_blank', 'noopener,noreferrer');
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             >
-              <ExternalLink className="h-4 w-4" />
-              Live Demo
-            </a>
+              <Github className="w-4 h-4" />
+              View Code
+            </button>
           )}
         </div>
       </div>

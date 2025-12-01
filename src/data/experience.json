@@ -1,18 +1,29 @@
 [
   {
-    "id": "accenture",
+    "id": "accenture-analyst",
     "company": "Accenture",
-    "role": "Packaged App Development Associate",
-    "startDate": "2024-04",
+    "role": "Packaged App Development Analyst",
+    "startDate": "2025-12",
     "endDate": "Present",
     "location": "Bengaluru, India",
     "achievements": [
-      "Contributed to the design, development, and maintenance of enterprise-grade web applications using the MEAN stack and Adobe Magento 2, covering backend logic, front-end integration, and full-stack delivery.",
-      "Enhanced backend modules and utilities to improve modularity, performance, and code readability; improved logging and error handling for production stability.",
-      "Designed and optimized unit and automation test suites using PHPUnit and Gherkin (BDD), enhancing test coverage and reducing post-deployment defects by approximately 20%.",
-      "Engineered and optimized Angular + Firebase + Cloud Functions workflows with real-time sync and automated notifications, reducing backend latency from 1100ms to 400ms through caching and query optimization.",
-      "Automated deployments via GitHub Actions and Firebase Hosting, establishing scalable CI/CD pipelines and environment rollouts.",
-      "Collaborated in architecture and performance reviews, contributing to scalable design choices and DevOps-driven engineering practices."
+      "Engineered Angular + Firebase workflows with real-time sync and reduced backend latency from 1100ms to 200ms.",
+      "Automated CI/CD deployments using GitHub Actions and Firebase Hosting.",
+      "Participated in architecture and performance reviews, contributing to scalable design and DevOps practices."
+    ],
+    "logo": "/images/companies/accenture-logo.svg"
+  },
+  {
+    "id": "accenture-associate",
+    "company": "Accenture",
+    "role": "Packaged App Development Associate",
+    "startDate": "2024-04",
+    "endDate": "2025-11",
+    "location": "Bengaluru, India",
+    "achievements": [
+      "Contributed to the design, development, and maintenance of enterprise-grade web applications using the MEAN stack and Adobe Magento 2.",
+      "Enhanced backend modules and improved error handling for production stability.",
+      "Developed unit and automation test suites using PHPUnit and Gherkin (BDD)."
     ],
     "logo": "/images/companies/accenture-logo.svg"
   },
@@ -20,7 +31,7 @@
     "id": "ideas",
     "company": "IDeaS Revenue Solutions",
     "role": "Associate Technical Support Engineer",
-    "startDate": "2023-10",
+    "startDate": "2023-09",
     "endDate": "2024-01",
     "location": "Pune, India",
     "achievements": [

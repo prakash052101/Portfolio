@@ -1,11 +1,11 @@
 import { Hero } from '@/components/sections/Hero';
 import { About } from '@/components/sections/About';
 import { Experience } from '@/components/sections/Experience';
-import { Projects } from '@/components/sections/Projects';
+import { FeaturedProjects } from '@/components/ui/FeaturedProjects';
 import { Writing } from '@/components/sections/Writing';
 import { Contact } from '@/components/sections/Contact';
 import { getExperienceData, getEducationData } from '@/lib/experience';
-import { getAllProjects } from '@/lib/data';
+import { getFeaturedProjects } from '@/data/projects';
 import {
   StructuredData,
   generateOrganizationStructuredData,
@@ -19,7 +19,7 @@ export const revalidate = 3600; // Revalidate every hour
 async function getStaticData() {
   const experiences = getExperienceData();
   const education = getEducationData();
-  const projects = getAllProjects();
+  const projects = getFeaturedProjects();
 
   return {
     experiences,
@@ -37,7 +37,7 @@ export default async function Home() {
       <Hero />
       <About education={education} />
       <Experience experiences={experiences} />
-      <Projects projects={projects} />
+      <FeaturedProjects projects={projects} />
       <Writing />
       <Contact />
     </>
