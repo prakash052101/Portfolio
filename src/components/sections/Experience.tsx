@@ -57,13 +57,13 @@ export function Experience({ experiences }: ExperienceProps) {
               <div className="text-center">
                 <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm">
                   <div className="text-2xl font-bold text-teal-600 dark:text-teal-400 mb-2">
-                    ~1200ms → ~400ms
+                    ~1600ms → ~400ms
                   </div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
                     Cloud Function Optimization
                   </div>
                   <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
-                    67% Performance Improvement
+                    75% Performance Improvement
                   </div>
                 </div>
               </div>
@@ -71,13 +71,13 @@ export function Experience({ experiences }: ExperienceProps) {
               <div className="text-center">
                 <div className="bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm">
                   <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">
-                    ~1200ms → ~100ms
+                    ~1100ms → ~200ms
                   </div>
                   <div className="text-sm text-slate-600 dark:text-slate-400">
                     Critical Functions
                   </div>
                   <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
-                    92% Latency Reduction
+                    90% Latency Reduction
                   </div>
                 </div>
               </div>

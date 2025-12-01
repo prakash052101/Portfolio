@@ -20,9 +20,6 @@ export function Footer() {
             <p className="text-slate-700 dark:text-slate-300 text-sm">
               © {currentYear} {CONTACT_INFO.name}. All rights reserved.
             </p>
-            <p className="text-slate-600 dark:text-slate-400 text-xs mt-1">
-              Built with Next.js & Tailwind CSS
-            </p>
           </div>
 
           {/* Social Links */}

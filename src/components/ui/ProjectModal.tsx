@@ -192,51 +192,58 @@ export function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
                       Gallery
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {project.images.map((image, index) => (
-                        <div
-                          key={index}
-                          className="relative aspect-video overflow-hidden rounded-lg bg-gray-800"
-                        >
-                          {!imageError[image] ? (
-                            <>
-                              {/* Loading skeleton */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse" />
-                              <Image
-                                src={image}
-                                alt={`${project.title} screenshot ${index + 1}`}
-                                fill
-                                className="object-cover transition-opacity duration-500 opacity-0 data-[loaded=true]:opacity-100"
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                quality={80}
-                                loading="lazy"
-                                placeholder={
-                                  project.blurDataURL ? 'blur' : 'empty'
-                                }
-                                blurDataURL={project.blurDataURL}
-                                onError={() =>
-                                  setImageError(prev => ({
-                                    ...prev,
-                                    [image]: true,
-                                  }))
-                                }
-                                onLoad={e => {
-                                  const img = e.target as HTMLImageElement;
-                                  img.setAttribute('data-loaded', 'true');
-                                }}
-                              />
-                            </>
-                          ) : (
-                            <div className="absolute inset-0 flex items-center justify-center animate-in fade-in duration-300">
-                              <div className="text-center">
-                                <FolderIcon className="w-12 h-12 mx-auto text-gray-600" />
-                                <p className="mt-2 text-xs text-gray-500">
-                                  Image unavailable
-                                </p>
+                      {project.images.map((image, index) => {
+                        const isSvgImage = image.toLowerCase().endsWith('.svg');
+                        const placeholderType =
+                          isSvgImage || !project.blurDataURL ? 'empty' : 'blur';
+
+                        return (
+                          <div
+                            key={index}
+                            className="relative aspect-video overflow-hidden rounded-lg bg-gray-800"
+                          >
+                            {!imageError[image] ? (
+                              <>
+                                {/* Loading skeleton */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse" />
+                                <Image
+                                  src={image}
+                                  alt={`${project.title} screenshot ${index + 1}`}
+                                  fill
+                                  className="object-cover transition-opacity duration-500 opacity-0 data-[loaded=true]:opacity-100"
+                                  sizes="(max-width: 768px) 100vw, 50vw"
+                                  quality={80}
+                                  loading="lazy"
+                                  placeholder={placeholderType}
+                                  blurDataURL={
+                                    isSvgImage ? undefined : project.blurDataURL
+                                  }
+                                  unoptimized={isSvgImage}
+                                  onError={() =>
+                                    setImageError(prev => ({
+                                      ...prev,
+                                      [image]: true,
+                                    }))
+                                  }
+                                  onLoad={e => {
+                                    const img = e.target as HTMLImageElement;
+                                    img.setAttribute('data-loaded', 'true');
+                                  }}
+                                />
+                              </>
+                            ) : (
+                              <div className="absolute inset-0 flex items-center justify-center animate-in fade-in duration-300">
+                                <div className="text-center">
+                                  <FolderIcon className="w-12 h-12 mx-auto text-gray-600" />
+                                  <p className="mt-2 text-xs text-gray-500">
+                                    Image unavailable
+                                  </p>
+                                </div>
                               </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   </section>
                 )}

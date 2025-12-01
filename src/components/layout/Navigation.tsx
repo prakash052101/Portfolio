@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { NAVIGATION_ITEMS, UI_CONFIG } from '@/lib/constants';
 import { NavigationItem } from '@/types';
@@ -28,6 +28,45 @@ export function Navigation({ currentSection }: NavigationProps) {
   const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const sections = useMemo(
+    () => NAVIGATION_ITEMS.map(item => item.section),
+    []
+  );
+
+  const sectionToPath = useCallback(
+    (section: string) => (section === 'hero' ? '/' : `/${section}`),
+    []
+  );
+
+  const pathToSection = useCallback(
+    (pathname: string) => {
+      const segment = pathname.split('/').filter(Boolean)[0] || 'hero';
+      return sections.includes(segment) ? segment : 'hero';
+    },
+    [sections]
+  );
+
+  const updateUrlPath = useCallback(
+    (section: string) => {
+      if (typeof window === 'undefined') return;
+
+      const pathDepth = window.location.pathname
+        .split('/')
+        .filter(Boolean).length;
+      // Avoid clobbering nested routes like /projects/[slug]
+      if (pathDepth > 1) return;
+
+      const newPath = sectionToPath(section);
+      const search = window.location.search;
+      const newUrl = `${newPath}${search}`;
+
+      if (window.location.pathname !== newPath) {
+        window.history.replaceState(null, '', newUrl);
+      }
+    },
+    [sectionToPath]
+  );
+
   // Handle scroll to update active section and navigation background
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +74,6 @@ export function Navigation({ currentSection }: NavigationProps) {
       setIsScrolled(scrollY > 10);
 
       // Find the current section based on scroll position
-      const sections = NAVIGATION_ITEMS.map(item => item.section);
       let current = 'hero';
 
       for (const section of sections) {
@@ -57,7 +95,7 @@ export function Navigation({ currentSection }: NavigationProps) {
     handleScroll(); // Call once to set initial state
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [sections]);
 
   // Update active section from props if provided
   useEffect(() => {
@@ -66,8 +104,39 @@ export function Navigation({ currentSection }: NavigationProps) {
     }
   }, [currentSection]);
 
+  // On initial load, derive section from path and scroll into view
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const pathDepth = window.location.pathname
+      .split('/')
+      .filter(Boolean).length;
+    const initialSection = pathToSection(window.location.pathname);
+    setActiveSection(initialSection);
+
+    if (pathDepth > 1) return;
+
+    if (initialSection && initialSection !== 'hero') {
+      requestAnimationFrame(() => {
+        const element = document.getElementById(initialSection);
+        if (element) {
+          const offsetTop = element.offsetTop - UI_CONFIG.scrollOffset;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      });
+    }
+  }, [pathToSection]);
+
+  // Keep URL path in sync with the active section
+  useEffect(() => {
+    updateUrlPath(activeSection);
+  }, [activeSection, updateUrlPath]);
+
   // Handle smooth scroll to section
-  const handleNavClick = (href: string, section: string) => {
+  const handleNavClick = (section: string) => {
+    setActiveSection(section);
+    updateUrlPath(section);
+
     const element = document.getElementById(section);
     if (element) {
       const offsetTop = element.offsetTop - UI_CONFIG.scrollOffset;
@@ -80,14 +149,10 @@ export function Navigation({ currentSection }: NavigationProps) {
   };
 
   // Handle keyboard navigation
-  const handleKeyDown = (
-    event: React.KeyboardEvent,
-    href: string,
-    section: string
-  ) => {
+  const handleKeyDown = (event: React.KeyboardEvent, section: string) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      handleNavClick(href, section);
+      handleNavClick(section);
     }
   };
 
@@ -146,8 +211,8 @@ export function Navigation({ currentSection }: NavigationProps) {
           {/* Logo/Brand */}
           <div className="flex-shrink-0">
             <button
-              onClick={() => handleNavClick('#hero', 'hero')}
-              onKeyDown={e => handleKeyDown(e, '#hero', 'hero')}
+              onClick={() => handleNavClick('hero')}
+              onKeyDown={e => handleKeyDown(e, 'hero')}
               className="text-xl font-bold text-foreground hover:text-accent transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background rounded-md px-2 py-1"
               aria-label="Go to top of page"
             >
@@ -161,8 +226,8 @@ export function Navigation({ currentSection }: NavigationProps) {
               {NAVIGATION_ITEMS.map((item: NavigationItem) => (
                 <button
                   key={item.section}
-                  onClick={() => handleNavClick(item.href, item.section)}
-                  onKeyDown={e => handleKeyDown(e, item.href, item.section)}
+                  onClick={() => handleNavClick(item.section)}
+                  onKeyDown={e => handleKeyDown(e, item.section)}
                   className={`
                     px-3 py-2 rounded-md text-sm font-medium transition-all duration-150 ease-in-out
                     focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background
@@ -250,8 +315,8 @@ export function Navigation({ currentSection }: NavigationProps) {
           {NAVIGATION_ITEMS.map((item: NavigationItem) => (
             <button
               key={item.section}
-              onClick={() => handleNavClick(item.href, item.section)}
-              onKeyDown={e => handleKeyDown(e, item.href, item.section)}
+              onClick={() => handleNavClick(item.section)}
+              onKeyDown={e => handleKeyDown(e, item.section)}
               className={`
                 block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-all duration-150 ease-in-out
                 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background

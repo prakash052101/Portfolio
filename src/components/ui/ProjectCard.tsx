@@ -13,9 +13,12 @@ export function ProjectCard({
   index,
 }: ProjectCardProps) {
   const [imageError, setImageError] = useState(false);
+  const thumbnail = project.images?.[0] ?? project.image;
 
   // Determine if this is one of the first 3 cards for priority loading
   const isPriority = index < 3;
+  const isSvgImage = thumbnail.toLowerCase().endsWith('.svg');
+  const placeholderType = isSvgImage || !project.blurDataURL ? 'empty' : 'blur';
 
   // Handle click to open modal
   const handleClick = () => {
@@ -70,7 +73,7 @@ export function ProjectCard({
             {/* Loading skeleton - shown while image loads */}
             <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse" />
             <Image
-              src={project.image}
+              src={thumbnail}
               alt={`Screenshot of ${project.title} showing ${project.shortDescription}`}
               fill
               className="object-cover transition-all duration-500 group-hover:scale-105 will-change-transform opacity-0 data-[loaded=true]:opacity-100"
@@ -78,8 +81,9 @@ export function ProjectCard({
               loading={isPriority ? 'eager' : 'lazy'}
               sizes="(max-width: 768px) 85vw, (max-width: 1024px) 45vw, 30vw"
               quality={80}
-              placeholder={project.blurDataURL ? 'blur' : 'empty'}
-              blurDataURL={project.blurDataURL}
+              placeholder={placeholderType}
+              blurDataURL={isSvgImage ? undefined : project.blurDataURL}
+              unoptimized={isSvgImage}
               onError={() => setImageError(true)}
               onLoad={e => {
                 const img = e.target as HTMLImageElement;
@@ -146,7 +150,7 @@ export function ProjectCard({
               className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             >
               <ExternalLink className="w-4 h-4" />
-              Live Demo
+              Live
             </button>
           )}
           {project.codeUrl && (
