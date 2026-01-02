@@ -130,9 +130,9 @@ export const THEME_CONFIG = {
 
 // Resume Configuration
 export const RESUME_CONFIG = {
-  filename: 'PRAKASH_KUMAR_RESUME.pdf',
-  downloadPath: '/download-resume',
-  publicPath: '/resume/PRAKASH_KUMAR_RESUME.pdf',
+  filename: 'Prakash_Kumar_Resume.pdf',
+  downloadPath: '/resume/Prakash_Kumar_Resume.pdf',
+  publicPath: '/resume/Prakash_Kumar_Resume.pdf',
 };
 
 // SEO Configuration
