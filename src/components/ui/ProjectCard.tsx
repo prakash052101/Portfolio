@@ -43,30 +43,40 @@ export function ProjectCard({
       className={cn(
         // Base styles
         'group relative flex flex-col overflow-hidden rounded-xl cursor-pointer',
-        'bg-card border border-border',
-        'transition-all duration-300 ease-out',
-        // Hover effects - subtle lift and shadow
-        'hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20',
+        'bg-gray-900 border border-gray-800',
+        'transition-all duration-300',
+        // Hover effects (desktop only) - lift effect with scale and enhanced shadow
+        'hover:scale-[1.02] hover:shadow-2xl hover:shadow-indigo-500/30 hover:border-indigo-500/50',
+        // Gradient border glow effect using pseudo-element (outer glow)
+        'before:absolute before:inset-0 before:rounded-xl before:p-[1px]',
+        'before:bg-gradient-to-r before:from-indigo-500 before:via-purple-500 before:to-indigo-500',
+        'before:opacity-0 before:transition-opacity before:duration-300',
+        'hover:before:opacity-100 before:-z-10 before:blur-xl',
+        // Additional inner glow effect using after pseudo-element
+        'after:absolute after:inset-0 after:rounded-xl',
+        'after:bg-gradient-to-br after:from-indigo-500/5 after:via-transparent after:to-purple-500/5',
+        'after:opacity-0 after:transition-opacity after:duration-300',
+        'hover:after:opacity-100 after:pointer-events-none',
         // Focus styles
-        'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background',
+        'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-950',
         // Layout-specific styles
-        layout === 'strip' && 'snap-center flex-shrink-0 w-[80vw]',
+        layout === 'strip' && 'snap-center flex-shrink-0 w-[85vw]',
         layout === 'grid' && 'h-full',
-        // Performance optimization
+        // Performance optimization: will-change for animated properties
         'will-change-transform'
       )}
     >
       {/* Project Image */}
-      <div className="relative z-10 aspect-video overflow-hidden bg-muted flex-shrink-0">
+      <div className="relative z-10 aspect-video overflow-hidden bg-gray-800 flex-shrink-0">
         {!imageError ? (
           <>
-            {/* Loading skeleton */}
-            <div className="absolute inset-0 bg-muted animate-pulse" />
+            {/* Loading skeleton - shown while image loads */}
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 animate-pulse" />
             <Image
               src={thumbnail}
               alt={`Screenshot of ${project.title} showing ${project.shortDescription}`}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105 will-change-transform opacity-0 data-[loaded=true]:opacity-100"
+              className="object-cover transition-all duration-500 group-hover:scale-105 will-change-transform opacity-0 data-[loaded=true]:opacity-100"
               priority={isPriority}
               loading={isPriority ? 'eager' : 'lazy'}
               sizes="(max-width: 768px) 85vw, (max-width: 1024px) 45vw, 30vw"
@@ -82,12 +92,10 @@ export function ProjectCard({
             />
           </>
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-muted animate-in fade-in duration-300">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-800 animate-in fade-in duration-300">
             <div className="text-center">
-              <FolderIcon className="w-16 h-16 mx-auto text-muted-foreground/50" />
-              <p className="mt-2 text-sm text-muted-foreground">
-                Image unavailable
-              </p>
+              <FolderIcon className="w-16 h-16 mx-auto text-gray-600" />
+              <p className="mt-2 text-sm text-gray-500">Image unavailable</p>
             </div>
           </div>
         )}
@@ -96,12 +104,12 @@ export function ProjectCard({
       {/* Project Content */}
       <div className="relative z-10 flex flex-col flex-1 p-6">
         {/* Title */}
-        <h3 className="text-xl md:text-2xl font-bold text-card-foreground mb-3 leading-tight tracking-tight group-hover:text-primary transition-colors duration-300">
+        <h3 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight tracking-tight">
           {project.title}
         </h3>
 
         {/* Short Description */}
-        <p className="text-muted-foreground text-sm md:text-base leading-relaxed mb-4 line-clamp-2">
+        <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4 line-clamp-2">
           {project.shortDescription}
         </p>
 
@@ -111,17 +119,18 @@ export function ProjectCard({
             <span
               key={tag}
               className={cn(
-                'px-2.5 py-0.5 text-xs font-medium rounded-md',
-                'bg-primary/5 text-primary border border-primary/10',
-                'transition-colors duration-300',
-                'group-hover:bg-primary/10 group-hover:border-primary/20'
+                'relative px-3 py-1 text-xs font-medium rounded-full',
+                'bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-indigo-500/10',
+                'text-indigo-400 border border-indigo-500/20',
+                'transition-all duration-300',
+                'hover:border-indigo-400/40 hover:shadow-sm hover:shadow-indigo-500/20'
               )}
             >
               {tag}
             </span>
           ))}
           {project.tags.length > 4 && (
-            <span className="px-2.5 py-0.5 text-xs font-medium rounded-md bg-muted text-muted-foreground">
+            <span className="px-3 py-1 text-xs font-medium rounded-full bg-gray-800 text-gray-400">
               +{project.tags.length - 4} more
             </span>
           )}
@@ -131,14 +140,14 @@ export function ProjectCard({
         <div className="flex-1" />
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mt-4 pt-4 border-t border-border/50">
+        <div className="flex gap-3 mt-4">
           {project.liveUrl && (
             <button
               onClick={e => {
                 e.stopPropagation();
                 window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background shadow-sm hover:shadow"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             >
               <ExternalLink className="w-4 h-4" />
               Live
@@ -150,7 +159,7 @@ export function ProjectCard({
                 e.stopPropagation();
                 window.open(project.codeUrl, '_blank', 'noopener,noreferrer');
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background shadow-sm hover:shadow"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             >
               <Github className="w-4 h-4" />
               View Code

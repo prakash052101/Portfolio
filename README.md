@@ -63,3 +63,7 @@ src/
 ## License
 
 This project is for personal use by Prakash Kumar.
+
+
+//Axyn -> Name for algo trading app
+//Fynli-> Expense tracker app name
